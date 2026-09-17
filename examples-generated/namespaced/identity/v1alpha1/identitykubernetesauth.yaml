@@ -1,0 +1,59 @@
+apiVersion: identity.infisical.m.hangar.io/v1alpha1
+kind: IdentityKubernetesAuth
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/identitykubernetesauth
+  labels:
+    testing.upbound.io/example-name: kubernetes-auth-demo-1
+  name: kubernetes-auth-demo-1
+  namespace: crossplane-system
+spec:
+  forProvider:
+    accessTokenMaxTtl: 2592000
+    accessTokenTtl: 2592000
+    allowedNamespaces:
+    - infisical-ns
+    allowedServiceAccountNames:
+    - infisical-sa
+    - infisical-sa-2
+    identityIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: machine-identity-demo-1
+    kubernetesCaCertificate: <your-kubernetes-ca-certificate>
+    kubernetesHost: http://<your-kubernetes-host>
+    tokenReviewerJwt: ey<example>
+    tokenReviewerMode: api
+
+---
+
+apiVersion: identity.infisical.m.hangar.io/v1alpha1
+kind: Identity
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/identitykubernetesauth
+  labels:
+    testing.upbound.io/example-name: machine-identity-demo-1
+  name: machine-identity-demo-1
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: machine-identity-demo-1
+    orgId: <your-org-id>
+    role: admin
+
+---
+
+apiVersion: identity.infisical.m.hangar.io/v1alpha1
+kind: Identity
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/identitykubernetesauth
+  labels:
+    testing.upbound.io/example-name: machine-identity-demo-2
+  name: machine-identity-demo-2
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: machine-identity-demo-2
+    orgId: <your-org-id>
+    role: admin

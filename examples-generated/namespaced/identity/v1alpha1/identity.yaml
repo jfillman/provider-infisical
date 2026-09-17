@@ -1,0 +1,41 @@
+apiVersion: identity.infisical.m.hangar.io/v1alpha1
+kind: Identity
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/identity
+  labels:
+    testing.upbound.io/example-name: universal-auth
+  name: universal-auth
+  namespace: crossplane-system
+spec:
+  forProvider:
+    metadata:
+    - key: key1
+      value: value1
+    - key: key2
+      value: value2
+    name: universal-auth
+    orgId: <org_id>
+    role: member
+
+---
+
+apiVersion: identity.infisical.m.hangar.io/v1alpha1
+kind: IdentityKubernetesAuth
+metadata:
+  annotations:
+    meta.upbound.io/example-id: identity/v1alpha1/identity
+  labels:
+    testing.upbound.io/example-name: k8-auth
+  name: k8-auth
+  namespace: crossplane-system
+spec:
+  forProvider:
+    allowedNamespaces:
+    - namespace-a
+    - namespace-b
+    identityIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: k8-auth
+    kubernetesHost: http://example.com
+    tokenReviewerJwt: ey<example>

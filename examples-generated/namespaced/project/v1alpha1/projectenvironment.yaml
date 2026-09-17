@@ -1,0 +1,34 @@
+apiVersion: project.infisical.m.hangar.io/v1alpha1
+kind: ProjectEnvironment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: project/v1alpha1/projectenvironment
+  labels:
+    testing.upbound.io/example-name: pre-prod
+  name: pre-prod
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: pre-prod
+    position: 2
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    slug: preprod
+
+---
+
+apiVersion: project.infisical.m.hangar.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: project/v1alpha1/projectenvironment
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: example
+    position: 1
+    slug: example

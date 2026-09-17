@@ -1,8 +1,8 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= upjet-provider-template
-PROJECT_REPO ?= github.com/crossplane/$(PROJECT_NAME)
+PROJECT_NAME ?= provider-infisical
+PROJECT_REPO ?= github.com/jfillman/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION ?= 1.5.7
 
@@ -10,12 +10,18 @@ export TERRAFORM_VERSION ?= 1.5.7
 # licensed under BSL, which is not permitted.
 TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAFORM_VERSION)\n1.6" | sort -V | head -n1`" ] && echo 1 || echo 0)
 
-export TERRAFORM_PROVIDER_SOURCE ?= hashicorp/null
-export TERRAFORM_PROVIDER_REPO ?= https://github.com/hashicorp/terraform-provider-null
-export TERRAFORM_PROVIDER_VERSION ?= 3.2.4
-export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-null
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/$(TERRAFORM_PROVIDER_VERSION)
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-null_v3.2.4_x5
+export TERRAFORM_PROVIDER_SOURCE ?= Infisical/infisical
+export TERRAFORM_PROVIDER_REPO ?= https://github.com/Infisical/terraform-provider-infisical
+export TERRAFORM_PROVIDER_VERSION ?= 0.19.32
+export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-infisical
+# Infisical is not distributed via releases.hashicorp.com (that's HashiCorp-owned
+# providers only) - it ships its own GitHub Releases, goreleaser-built like most
+# third-party providers.
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/Infisical/terraform-provider-infisical/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
+# Confirmed by downloading and inspecting the real v0.19.32 darwin_arm64 zip - the
+# inner binary has no terraform-protocol-version suffix (unlike e.g. the null
+# provider's "_x5"), just "_v<version>".
+export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-infisical_v0.19.32
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
@@ -95,7 +101,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.upjet-provider-template: do.build.images
+xpkg.build.provider-infisical: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.

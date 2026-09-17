@@ -9,15 +9,27 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
-	resource "github.com/crossplane/upjet-provider-template/internal/controller/namespaced/null/resource"
-	providerconfig "github.com/crossplane/upjet-provider-template/internal/controller/namespaced/providerconfig"
+	identity "github.com/jfillman/provider-infisical/internal/controller/namespaced/identity/identity"
+	identitykubernetesauth "github.com/jfillman/provider-infisical/internal/controller/namespaced/identity/identitykubernetesauth"
+	identityuniversalauth "github.com/jfillman/provider-infisical/internal/controller/namespaced/identity/identityuniversalauth"
+	identityuniversalauthclientsecret "github.com/jfillman/provider-infisical/internal/controller/namespaced/identity/identityuniversalauthclientsecret"
+	project "github.com/jfillman/provider-infisical/internal/controller/namespaced/project/project"
+	projectenvironment "github.com/jfillman/provider-infisical/internal/controller/namespaced/project/projectenvironment"
+	projectidentity "github.com/jfillman/provider-infisical/internal/controller/namespaced/project/projectidentity"
+	providerconfig "github.com/jfillman/provider-infisical/internal/controller/namespaced/providerconfig"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		identity.Setup,
+		identitykubernetesauth.Setup,
+		identityuniversalauth.Setup,
+		identityuniversalauthclientsecret.Setup,
+		project.Setup,
+		projectenvironment.Setup,
+		projectidentity.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
@@ -31,7 +43,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 // the supplied manager gated.
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.SetupGated,
+		identity.SetupGated,
+		identitykubernetesauth.SetupGated,
+		identityuniversalauth.SetupGated,
+		identityuniversalauthclientsecret.SetupGated,
+		project.SetupGated,
+		projectenvironment.SetupGated,
+		projectidentity.SetupGated,
 		providerconfig.SetupGated,
 	} {
 		if err := setup(mgr, o); err != nil {
@@ -44,7 +62,13 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 // SetupWebhookWithManager registers conversion webhooks for all resource kinds in the group.
 func SetupWebhookWithManager(mgr ctrl.Manager) error {
 	for _, setup := range []func(ctrl.Manager) error{
-		resource.SetupWebhookWithManager,
+		identity.SetupWebhookWithManager,
+		identitykubernetesauth.SetupWebhookWithManager,
+		identityuniversalauth.SetupWebhookWithManager,
+		identityuniversalauthclientsecret.SetupWebhookWithManager,
+		project.SetupWebhookWithManager,
+		projectenvironment.SetupWebhookWithManager,
+		projectidentity.SetupWebhookWithManager,
 		providerconfig.SetupWebhookWithManager,
 	} {
 		if err := setup(mgr); err != nil {
