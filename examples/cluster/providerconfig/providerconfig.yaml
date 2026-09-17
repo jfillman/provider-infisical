@@ -1,4 +1,4 @@
-apiVersion: infisical.crossplane.io/v1beta1
+apiVersion: infisical.hangar.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
