@@ -71,9 +71,6 @@ jobs:
         run: make -j2 build.all
         env:
           BUILD_ARGS: "--load"
-          VERSION: ${{ github.event.inputs.version }}
 
       - name: Publish to GHCR
         run: make publish.artifacts
-        env:
-          VERSION: ${{ github.event.inputs.version }}
