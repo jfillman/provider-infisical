@@ -71,17 +71,16 @@ CROSSPLANE_VERSION = 2.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= ghcr.io/crossplane-contrib
+REGISTRY_ORGS ?= ghcr.io/jfillman
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= ghcr.io/crossplane-contrib
-# NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
-# inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/crossplane-contrib
+XPKG_REG_ORGS ?= ghcr.io/jfillman
+# Only registry we publish to is our own GHCR - nothing to skip-promote.
+XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/jfillman
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
