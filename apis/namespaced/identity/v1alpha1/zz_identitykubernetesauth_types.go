@@ -88,7 +88,7 @@ type IdentityKubernetesAuthInitParameters struct {
 
 	// lived service account JWT token for Infisical to access the TokenReview API to validate other service account JWT tokens submitted by applications/pods. This is the JWT token obtained from step 1.5.
 	// A long-lived service account JWT token for Infisical to access the [TokenReview API](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/) to validate other service account JWT tokens submitted by applications/pods. This is the JWT token obtained from step 1.5.
-	TokenReviewerJwt *string `json:"tokenReviewerJwt,omitempty" tf:"token_reviewer_jwt,omitempty"`
+	TokenReviewerJwtSecretRef *v2.LocalSecretKeySelector `json:"tokenReviewerJwtSecretRef,omitempty" tf:"-"`
 
 	// (String) Choose between Token ('api') or 'gateway' authentication. If using Gateway, the Gateway must be deployed in your Kubernetes cluster.
 	// Choose between Token ('api') or 'gateway' authentication. If using Gateway, the Gateway must be deployed in your Kubernetes cluster.
@@ -142,10 +142,6 @@ type IdentityKubernetesAuthObservation struct {
 	// info.
 	// The host string, host:port pair, or URL to the base of the Kubernetes API server. This can usually be obtained by running `kubectl cluster-info`.
 	KubernetesHost *string `json:"kubernetesHost,omitempty" tf:"kubernetes_host,omitempty"`
-
-	// lived service account JWT token for Infisical to access the TokenReview API to validate other service account JWT tokens submitted by applications/pods. This is the JWT token obtained from step 1.5.
-	// A long-lived service account JWT token for Infisical to access the [TokenReview API](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/) to validate other service account JWT tokens submitted by applications/pods. This is the JWT token obtained from step 1.5.
-	TokenReviewerJwt *string `json:"tokenReviewerJwt,omitempty" tf:"token_reviewer_jwt,omitempty"`
 
 	// (String) Choose between Token ('api') or 'gateway' authentication. If using Gateway, the Gateway must be deployed in your Kubernetes cluster.
 	// Choose between Token ('api') or 'gateway' authentication. If using Gateway, the Gateway must be deployed in your Kubernetes cluster.
@@ -220,7 +216,7 @@ type IdentityKubernetesAuthParameters struct {
 	// lived service account JWT token for Infisical to access the TokenReview API to validate other service account JWT tokens submitted by applications/pods. This is the JWT token obtained from step 1.5.
 	// A long-lived service account JWT token for Infisical to access the [TokenReview API](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/) to validate other service account JWT tokens submitted by applications/pods. This is the JWT token obtained from step 1.5.
 	// +kubebuilder:validation:Optional
-	TokenReviewerJwt *string `json:"tokenReviewerJwt,omitempty" tf:"token_reviewer_jwt,omitempty"`
+	TokenReviewerJwtSecretRef *v2.LocalSecretKeySelector `json:"tokenReviewerJwtSecretRef,omitempty" tf:"-"`
 
 	// (String) Choose between Token ('api') or 'gateway' authentication. If using Gateway, the Gateway must be deployed in your Kubernetes cluster.
 	// Choose between Token ('api') or 'gateway' authentication. If using Gateway, the Gateway must be deployed in your Kubernetes cluster.

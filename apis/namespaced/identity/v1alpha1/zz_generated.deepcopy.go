@@ -311,9 +311,9 @@ func (in *IdentityKubernetesAuthInitParameters) DeepCopyInto(out *IdentityKubern
 		*out = new(string)
 		**out = **in
 	}
-	if in.TokenReviewerJwt != nil {
-		in, out := &in.TokenReviewerJwt, &out.TokenReviewerJwt
-		*out = new(string)
+	if in.TokenReviewerJwtSecretRef != nil {
+		in, out := &in.TokenReviewerJwtSecretRef, &out.TokenReviewerJwtSecretRef
+		*out = new(v2.LocalSecretKeySelector)
 		**out = **in
 	}
 	if in.TokenReviewerMode != nil {
@@ -442,11 +442,6 @@ func (in *IdentityKubernetesAuthObservation) DeepCopyInto(out *IdentityKubernete
 		*out = new(string)
 		**out = **in
 	}
-	if in.TokenReviewerJwt != nil {
-		in, out := &in.TokenReviewerJwt, &out.TokenReviewerJwt
-		*out = new(string)
-		**out = **in
-	}
 	if in.TokenReviewerMode != nil {
 		in, out := &in.TokenReviewerMode, &out.TokenReviewerMode
 		*out = new(string)
@@ -546,9 +541,9 @@ func (in *IdentityKubernetesAuthParameters) DeepCopyInto(out *IdentityKubernetes
 		*out = new(string)
 		**out = **in
 	}
-	if in.TokenReviewerJwt != nil {
-		in, out := &in.TokenReviewerJwt, &out.TokenReviewerJwt
-		*out = new(string)
+	if in.TokenReviewerJwtSecretRef != nil {
+		in, out := &in.TokenReviewerJwtSecretRef, &out.TokenReviewerJwtSecretRef
+		*out = new(v2.LocalSecretKeySelector)
 		**out = **in
 	}
 	if in.TokenReviewerMode != nil {
