@@ -10,5 +10,14 @@ func Configure(p *config.Provider) {
 		r.References["identity_id"] = config.Reference{
 			TerraformName: "infisical_identity",
 		}
+		// token_reviewer_jwt is a long-lived ServiceAccount token Infisical uses to call
+		// TokenReview on the cluster. The upstream Terraform schema does not mark it
+		// Sensitive, so upjet generated a plain spec.forProvider.tokenReviewerJwt string
+		// and every IdentityKubernetesAuth carried the token in etcd, in every
+		// composition round trip and in function payloads (airframe review C2). Marking it
+		// sensitive makes upjet generate spec.forProvider.tokenReviewerJwtSecretRef (a
+		// LocalSecretKeySelector: a Secret in the resource's own namespace) instead, and
+		// the provider reads the value only when it talks to Terraform.
+		r.TerraformResource.Schema["token_reviewer_jwt"].Sensitive = true
 	})
 }

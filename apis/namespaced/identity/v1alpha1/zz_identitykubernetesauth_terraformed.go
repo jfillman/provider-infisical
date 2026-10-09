@@ -21,7 +21,7 @@ func (mg *IdentityKubernetesAuth) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this IdentityKubernetesAuth
 func (tr *IdentityKubernetesAuth) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"token_reviewer_jwt": "tokenReviewerJwtSecretRef"}
 }
 
 // GetObservation of this IdentityKubernetesAuth
